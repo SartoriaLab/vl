@@ -366,9 +366,10 @@
             <span>Sua renda bruta anual</span>
             <div class="sim__input">
               <span class="sim__prefix">R$</span>
-              <input type="text" id="simRenda" inputmode="numeric" placeholder="120.000" autocomplete="off">
+              <input type="text" id="simRenda" inputmode="numeric" placeholder="120.000" autocomplete="off" aria-describedby="simHint">
             </div>
           </label>
+          <p class="sim__hint" id="simHint" hidden>Informe uma renda anual a partir de R$ 10.000 para simular.</p>
           <div class="sim__out" id="simOut" hidden>
             <div class="sim__row"><span>Você pode destinar ao PGBL até</span><strong id="simAporte">—</strong></div>
             <div class="sim__row sim__row--hl"><span>Economia potencial de IR<sup>*</sup></span><strong id="simEconomia">—</strong></div>

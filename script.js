@@ -200,6 +200,7 @@
     const simRenda = document.getElementById('simRenda');
     if (simRenda) {
       const out = document.getElementById('simOut');
+      const hint = document.getElementById('simHint');
       const elAporte = document.getElementById('simAporte');
       const elEco = document.getElementById('simEconomia');
       const cta = document.getElementById('simCta');
@@ -216,8 +217,10 @@
           const msg = `Olá! Simulei no site: com renda anual de ${brl.format(renda)}, posso aportar ${brl.format(aporte)} em PGBL e economizar até ${brl.format(economia)} de IR. Quero entender meu caso.`;
           cta.href = 'https://wa.me/5519971100435?text=' + encodeURIComponent(msg);
           out.hidden = false;
+          hint.hidden = true;
         } else {
           out.hidden = true;
+          hint.hidden = digits.length === 0;
         }
       });
     }
