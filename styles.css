@@ -235,10 +235,11 @@ section[id]{scroll-margin-top:84px}
 .office__vcard{margin-top:.9rem}
 
 /* seguradoras — parede de chips */
-.chips{display:flex;flex-wrap:wrap;gap:.6rem}
-.chips li{background:#fff;border:1px solid var(--line);border-radius:999px;padding:.5rem 1.05rem;
-  font-size:.88rem;font-weight:500;color:var(--muted);
+.chips{display:flex;flex-wrap:wrap;gap:.6rem;max-width:960px}
+.chips li{background:#fff;border:1px solid var(--line);border-radius:999px;padding:.42rem .9rem;
+  font-size:.82rem;font-weight:500;color:var(--muted);
   transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease)}
+.chips li.is-major{padding:.5rem 1.05rem;font-size:.88rem;font-weight:600;color:var(--ink);border-color:var(--line-strong)}
 .chips li:hover{border-color:var(--line-strong)}
 .partners__note{margin-top:1.6rem;font-size:.88rem;color:var(--muted)}
 .partners__note strong{color:var(--ink);font-weight:600}
