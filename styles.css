@@ -319,8 +319,10 @@ section[id]{scroll-margin-top:84px}
 }
 
 /* barra de conversão mobile */
-.mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:98;align-items:center;justify-content:center;
-  background:var(--brand);color:#fff;font-weight:600;padding:1rem 1rem calc(.9rem + env(safe-area-inset-bottom))}
+.mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:98;align-items:center;justify-content:center;gap:.55rem;
+  background:var(--brand);color:#fff;font-weight:600;padding:1rem 1rem calc(.9rem + env(safe-area-inset-bottom));
+  box-shadow:0 -6px 18px rgba(20,19,23,.14)}
+.mbar svg{flex:none}
 .mbar:active{background:var(--brand-dark)}
 
 /* ============ REDUCED MOTION ============
@@ -470,6 +472,13 @@ html.velo-motion{scroll-behavior:auto} /* Lenis assume a rolagem */
 
 /* ============ AJUSTES SMARTPHONE ============ */
 @media (max-width:639px){
+  .hero__title{font-size:clamp(2.1rem,8.5vw,2.5rem)}
+  .hero__title br{display:none}
+  .hero__actions .btn{flex:1 1 100%;justify-content:center}
+  .hero__facts{display:grid;grid-template-columns:1fr 1fr}
+  .hero__facts li+li{border-left:0;padding-left:0}
+  .hero__facts li:nth-child(even){border-left:1px solid var(--line);padding-left:1.4rem}
+  .hero__facts strong{font-size:1.6rem}
   .dark-field{--lr:140px}
   .dark-field article{padding:1.25rem}
   .cmp__panel{padding:1.5rem;min-height:0}
