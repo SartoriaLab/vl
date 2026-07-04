@@ -28,10 +28,12 @@
 (function () {
   'use strict';
 
-  // override de teste: ?motion=1 força, ?motion=0 desliga
+  // preferência do visitante > OS. ?motion=1/0 (dev) > localStorage > prefers-reduced-motion
   var q = new URLSearchParams(location.search).get('motion');
-  if (q === '0') return;
-  if (q !== '1' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var pref = null; try { pref = localStorage.getItem('velo-motion'); } catch (e) {}
+  var force = q === '1' ? 'on' : q === '0' ? 'off' : pref;
+  if (force === 'off') return;
+  if (force !== 'on' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var VERT = [
     'precision mediump float;',
@@ -184,8 +186,9 @@
 
     var fine = matchMedia('(pointer: fine)').matches;
 
-    /* orçamento de partículas por hardware */
-    var COUNT = fine ? 9000 : 3500;
+    /* orçamento de partículas por hardware (enxuto: mesma leitura visual,
+       bem mais leve em GPU integrada / notebooks) */
+    var COUNT = fine ? 6000 : 2800;
     if (navigator.deviceMemory && navigator.deviceMemory <= 4) COUNT = Math.round(COUNT * 0.6);
     if (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) COUNT = Math.round(COUNT * 0.7);
     var AMBIENT = Math.round(COUNT * 0.12);

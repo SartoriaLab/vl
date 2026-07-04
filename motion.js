@@ -8,10 +8,12 @@
 (function () {
   'use strict';
 
-  // override de teste: ?motion=1 força as animações, ?motion=0 desliga
+  // preferência do visitante > OS. ?motion=1/0 (dev) > localStorage > prefers-reduced-motion
   var q = new URLSearchParams(location.search).get('motion');
-  var reduced = q === '1' ? false
-              : q === '0' ? true
+  var pref = null; try { pref = localStorage.getItem('velo-motion'); } catch (e) {}
+  var force = q === '1' ? 'on' : q === '0' ? 'off' : pref; // 'on' | 'off' | null
+  var reduced = force === 'on' ? false
+              : force === 'off' ? true
               : matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ready = !!(window.gsap && window.ScrollTrigger && window.Lenis) && !reduced;
 

@@ -3,6 +3,35 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', () => {
+    // controle de animações: deixa qualquer visitante (ou o cliente numa
+    // máquina com "reduzir movimento" ligado) ativar/desligar o show.
+    // Padrão respeita o sistema; a escolha do usuário tem prioridade e persiste.
+    (function motionToggle() {
+      const q = new URLSearchParams(location.search).get('motion');
+      let pref = null; try { pref = localStorage.getItem('velo-motion'); } catch (e) {}
+      const sysReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const isOn = q === '1' ? true : q === '0' ? false : pref === 'on' ? true : pref === 'off' ? false : !sysReduced;
+
+      const btn = document.createElement('button');
+      btn.className = 'motion-toggle';
+      btn.type = 'button';
+      btn.setAttribute('aria-pressed', String(isOn));
+      const label = isOn ? 'Desativar animações' : 'Ativar animações';
+      btn.setAttribute('aria-label', label);
+      btn.title = label;
+      btn.innerHTML =
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17l5-5 3 3 7-8"/></svg>' +
+        '<span>' + (isOn ? 'Animações' : 'Animar') + '</span>';
+      btn.addEventListener('click', () => {
+        try { localStorage.setItem('velo-motion', isOn ? 'off' : 'on'); } catch (e) {}
+        // remove ?motion da URL para não sobrepor a nova escolha, e recarrega
+        const u = new URL(location.href);
+        u.searchParams.delete('motion');
+        location.replace(u.pathname + u.search + u.hash);
+      });
+      document.body.appendChild(btn);
+    })();
+
     // abertura de marca: o logo recebe o visitante e sai de cena
     const splash = document.getElementById('splash');
     if (splash) {
