@@ -28,12 +28,11 @@
 (function () {
   'use strict';
 
-  // preferência do visitante > OS. ?motion=1/0 (dev) > localStorage > prefers-reduced-motion
+  // animações ligadas por padrão; só o botão (localStorage) ou ?motion=0 desligam
   var q = new URLSearchParams(location.search).get('motion');
   var pref = null; try { pref = localStorage.getItem('velo-motion'); } catch (e) {}
   var force = q === '1' ? 'on' : q === '0' ? 'off' : pref;
   if (force === 'off') return;
-  if (force !== 'on' && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var VERT = [
     'precision mediump float;',

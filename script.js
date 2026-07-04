@@ -9,8 +9,8 @@
     (function motionToggle() {
       const q = new URLSearchParams(location.search).get('motion');
       let pref = null; try { pref = localStorage.getItem('velo-motion'); } catch (e) {}
-      const sysReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const isOn = q === '1' ? true : q === '0' ? false : pref === 'on' ? true : pref === 'off' ? false : !sysReduced;
+      // ligado por padrão; só desliga se o visitante escolheu 'off' (ou ?motion=0)
+      const isOn = q === '0' ? false : pref === 'off' ? false : true;
 
       const btn = document.createElement('button');
       btn.className = 'motion-toggle';

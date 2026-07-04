@@ -8,13 +8,12 @@
 (function () {
   'use strict';
 
-  // preferência do visitante > OS. ?motion=1/0 (dev) > localStorage > prefers-reduced-motion
+  // animações ligadas por padrão; o visitante pode desligar pelo botão (persiste).
+  // ?motion=1/0 (dev) > localStorage > padrão (ligado)
   var q = new URLSearchParams(location.search).get('motion');
   var pref = null; try { pref = localStorage.getItem('velo-motion'); } catch (e) {}
   var force = q === '1' ? 'on' : q === '0' ? 'off' : pref; // 'on' | 'off' | null
-  var reduced = force === 'on' ? false
-              : force === 'off' ? true
-              : matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduced = force === 'off'; // qualquer outro caso (inclusive sem preferência) = ligado
   var ready = !!(window.gsap && window.ScrollTrigger && window.Lenis) && !reduced;
 
   // script.js lê esta flag para decidir se mantém o fallback de fades
